@@ -34,9 +34,12 @@ public class CharacterMovementController : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Rigidbody2D rigidBody2D;
 
+    public bool canJump;
+
     // Start is called before the first frame update
     void Awake()
     {
+        canJump = true;
         animationController = GetComponent<CharacterAnimationController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigidBody2D = GetComponent<Rigidbody2D>();
@@ -46,7 +49,7 @@ public class CharacterMovementController : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKey(KeyCode.Space)&& IsGrounded())
+        if (Input.GetKey(KeyCode.Space)&& IsGrounded()&&canJump ==true)
         {
             rigidBody2D.velocity = Vector2.up*jumpForce;
         }
