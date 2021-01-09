@@ -17,12 +17,12 @@ public class GrabController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * GetFlipvalue(), rayDistance, boxLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * GetFlipvalue(), rayDistance,boxLayer);
         GameObject box = hit.collider.gameObject;
         
-        if (hit.collider!=null && Input.GetKey(KeyCode.F))
+        if (hit.collider!=null && Input.GetKey(KeyCode.F) )
         {
-
+            
             //karakter zıplamasını kapat
             characterMovementController.canJump = false;
 
