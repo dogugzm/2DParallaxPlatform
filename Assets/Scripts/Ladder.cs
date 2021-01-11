@@ -32,7 +32,7 @@ public class Ladder : MonoBehaviour
             }
             else
             {
-                other.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                other.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0.20f);
 
             }
         }

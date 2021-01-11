@@ -33,7 +33,9 @@ public class CharacterMovementController : MonoBehaviour
     CharacterAnimationController animationController;
     SpriteRenderer spriteRenderer;
     Rigidbody2D rigidBody2D;
-
+    CapsuleCollider2D capsuleCollider;
+    HingeJoint2D hingeJoint;
+    
     public bool canJump;
 
     // Start is called before the first frame update
@@ -43,6 +45,8 @@ public class CharacterMovementController : MonoBehaviour
         animationController = GetComponent<CharacterAnimationController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigidBody2D = GetComponent<Rigidbody2D>();
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
+        hingeJoint = GetComponent<HingeJoint2D>();
     }
 
     // Update is called once per frame
@@ -68,6 +72,7 @@ public class CharacterMovementController : MonoBehaviour
     private void HandleMovement()
     {
         rigidBody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+
         if (Input.GetKey(KeyCode.A))
         {
             rigidBody2D.velocity = new Vector2(-movementSpeed, rigidBody2D.velocity.y);
@@ -78,15 +83,26 @@ public class CharacterMovementController : MonoBehaviour
         }
         else
         {
-            rigidBody2D.velocity = new Vector2(0, rigidBody2D.velocity.y);
-            rigidBody2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+            if (IsGrounded())
+            {
+                rigidBody2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+            }
+            //rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, rigidBody2D.velocity.y);
+
+            //rigidBody2D.constraints = /*RigidbodyConstraints2D.FreezePositionX |*/ RigidbodyConstraints2D.FreezeRotation;
         }
     }
     public bool IsGrounded()
     {
-        RaycastHit2D raycastHit2D = Physics2D.BoxCast(spriteRenderer.bounds.center,spriteRenderer.bounds.size,0f,Vector2.down,isGroundedRayLength,platformLayerMask);        
+        //new ray
+        RaycastHit2D raycastHit2D = Physics2D.CapsuleCast(capsuleCollider.bounds.center, capsuleCollider.bounds.size,CapsuleDirection2D.Vertical,0,Vector2.down,isGroundedRayLength,platformLayerMask);
+        
+        //RaycastHit2D raycastHit2D = Physics2D.BoxCast(spriteRenderer.bounds.center,spriteRenderer.bounds.size,0f,Vector2.down,isGroundedRayLength,platformLayerMask);        
         return raycastHit2D.collider != null;
     }
+
+   
+
     //private void SetCharacterState()
     //{
     //    if (IsGrounded())

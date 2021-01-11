@@ -18,6 +18,7 @@ public class GrabController : MonoBehaviour
     void Update()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * GetFlipvalue(), rayDistance,boxLayer);
+
         GameObject box = hit.collider.gameObject;
         
         if (hit.collider!=null && Input.GetKey(KeyCode.F) )
@@ -38,7 +39,7 @@ public class GrabController : MonoBehaviour
         {
             characterMovementController.canJump = true;
 
-            box.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            box.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX;
             
 
             //y yi de kapat
