@@ -8,6 +8,9 @@ TagManager:
   - Cart
   - Ladder
   - Rope
+  - Coin
+  - Collectable
+  - Enemy
   layers:
   - Default
   - TransparentFX
