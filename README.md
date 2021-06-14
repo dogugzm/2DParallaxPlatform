@@ -1,3 +1,3 @@
-# Platform with parallax
+# Unfinished 2d platform project
 
  
